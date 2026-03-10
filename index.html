@@ -14,7 +14,6 @@
 
         body {
             background-color: var(--bg-dark);
-            /* グリッドを削除し、ネオンのカーブラインを追加 */
             background-image: 
                 radial-gradient(circle at 0% 0%, rgba(255, 140, 0, 0.08) 0%, transparent 50%),
                 radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.12) 0%, transparent 50%),
@@ -25,7 +24,6 @@
             min-height: 100vh;
             margin: 0;
             overflow-x: hidden;
-            position: relative;
         }
 
         .glass-card {
@@ -43,14 +41,6 @@
             border: 1px solid rgba(255, 140, 0, 0.3);
             border-radius: 2.5rem;
             position: relative;
-            overflow: hidden;
-        }
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0; right: 0;
-            width: 100px; height: 100px;
-            background: radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
         }
 
         .premium-number {
@@ -74,16 +64,39 @@
             object-fit: cover;
         }
 
+        /* アニメーションのデフォルト停止状態 */
         .wave-bar {
             width: 5px;
             background: var(--premium-orange);
             border-radius: 10px;
+            height: 12px;
             animation: wave 1s ease-in-out infinite;
+            animation-play-state: paused;
         }
+        .playing .wave-bar { animation-play-state: running; }
 
         @keyframes wave { 0%, 100% { height: 12px; } 50% { height: 32px; } }
+
+        .light-line-bg { width: 100%; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; }
+        .light-line-active {
+            position: absolute; left: 0; top: 0; h-full; background: var(--premium-orange);
+            box-shadow: 0 0 10px var(--premium-orange);
+            width: 0%;
+            animation: light-move 30s linear infinite;
+            animation-play-state: paused;
+        }
+        .playing .light-line-active { animation-play-state: running; }
+
         @keyframes light-move { 0% { width: 0%; } 100% { width: 100%; } }
-        /* ドットの色塗りつぶしアニメーションを削除（JavaScriptで制御） */
+
+        .circle-anim {
+            stroke-dasharray: 339.29;
+            stroke-dashoffset: 339.29;
+            animation: circular-fill 30s linear infinite;
+            animation-play-state: paused;
+        }
+        .playing .circle-anim { animation-play-state: running; }
+
         @keyframes circular-fill { 0% { stroke-dashoffset: 339.29; } 100% { stroke-dashoffset: 0; } }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
@@ -101,14 +114,18 @@
 
     <div class="max-w-5xl mx-auto z-10 relative">
         
-        <header class="flex flex-col items-center text-center mb-20">
+        <header class="flex flex-col items-center text-center mb-10">
             <div class="avatar-frame mb-8 floating">
                 <img src="poodle.jpg" alt="CEO Avatar" class="avatar-img">
             </div>
             
-            <h1 class="main-title text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-8 px-2">
+            <h1 class="main-title text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-4 px-2">
                 THE DRESSING ROOM
             </h1>
+            
+            <p class="text-gray-400 text-sm sm:text-base font-medium mb-6">CEOのトレーニングを覗ける部屋です</p>
+            
+            <div class="w-full max-w-md h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10"></div>
 
             <div class="flex items-center space-x-3 bg-white/5 px-6 py-2 rounded-full border border-white/10">
                 <span class="w-2 h-2 rounded-full bg-[#FF8C00] animate-pulse"></span>
@@ -135,7 +152,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
             
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
+            <div id="card-shadowing" class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -151,59 +168,64 @@
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="shadowing-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                        <svg class="icon-play w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        <svg class="icon-pause w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    <button id="shadowing-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                        <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
+            <div id="card-sentence" class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Sentence Building</span>
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Rapid Response Drill</h3>
-                    <div class="w-3/4 h-[2px] bg-white/5 relative overflow-hidden">
-                        <div class="absolute left-0 top-0 h-full bg-[#FF8C00] animate-[light-move_30s_linear_infinite]"></div>
+                    <div class="light-line-bg w-3/4">
+                        <div class="light-line-active"></div>
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="sentence-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                        <svg class="icon-play w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        <svg class="icon-pause w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    <button id="sentence-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                        <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
+            <div id="card-topic" class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Topic Talk</span>
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Investment Dialogue</h3>
-                    <div class="flex space-x-1.5 relative h-2">
-                        <div id="topic-dot-1" class="w-2 h-2 rounded-full bg-white/10 flex-shrink-0 transition-colors duration-200"></div>
-                        <div id="topic-dot-2" class="w-2 h-2 rounded-full bg-white/10 flex-shrink-0 transition-colors duration-200"></div>
-                        <div id="topic-dot-3" class="w-2 h-2 rounded-full bg-white/10 flex-shrink-0 transition-colors duration-200"></div>
-                        <div id="topic-dot-4" class="w-2 h-2 rounded-full bg-white/10 flex-shrink-0 transition-colors duration-200"></div>
-                        <div id="topic-dot-5" class="w-2 h-2 rounded-full bg-white/10 flex-shrink-0 transition-colors duration-200"></div>
+                    <div class="flex space-x-1 relative h-2">
+                        <div id="topic-dot-1" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-2" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-3" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-4" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-5" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-6" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-7" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-8" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-9" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-10" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="topic-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                        <svg class="icon-play w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        <svg class="icon-pause w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    <button id="topic-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                        <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
+            <div id="card-pronunciation" class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -211,16 +233,16 @@
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Phonetic Precision</h3>
                     <div class="relative w-12 h-12">
-                        <svg id="pronunciation-circle" class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
                             <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
-                            <circle cx="60" cy="60" r="54" fill="none" stroke="#FF8C00" stroke-width="12" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" class="animate-circle"/>
+                            <circle cx="60" cy="60" r="54" fill="none" stroke="#FF8C00" stroke-width="12" stroke-linecap="round" class="circle-anim"/>
                         </svg>
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="pronunciation-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                        <svg class="icon-play w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                        <svg class="icon-pause w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    <button id="pronunciation-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                        <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
@@ -236,125 +258,86 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let currentPlayingCardId = null;
-            let topicDotIntervalId = null;
+            let currentPlayingId = null;
+            let topicInterval = null;
+            let countdownInterval = null;
+            let timeLeftGlobal = 30;
 
-            function resetCardUi(cardId) {
-                if (!cardId) return;
+            function resetAll() {
+                // すべてのボタンUIをリセット
+                document.querySelectorAll('.play-btn').forEach(btn => {
+                    const iconPlay = btn.querySelector('.icon-play');
+                    const iconPause = btn.querySelector('.icon-pause');
+                    btn.classList.add('bg-white/5', 'border', 'border-white/10');
+                    btn.classList.remove('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
+                    iconPlay.classList.remove('hidden');
+                    iconPlay.classList.add('text-white'); // 白色を保証
+                    iconPause.classList.add('hidden');
+                });
 
-                const btn = document.querySelector(`#${cardId}-play`);
-                if (!btn) return;
-                const iconPlay = btn.querySelector('.icon-play');
-                const iconPause = btn.querySelector('.icon-pause');
-                const countdownEl = btn.closest('.glass-card').querySelector('.countdown-seconds');
-
-                // ボタン UI リセット
-                btn.classList.add('bg-white/5', 'border', 'border-white/10');
-                btn.classList.remove('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20', 'group-hover:bg-orange-500');
-                iconPlay.classList.remove('hidden');
-                iconPause.classList.add('hidden');
+                // アニメーション停止
+                document.querySelectorAll('.glass-card').forEach(card => {
+                    card.classList.remove('playing');
+                });
 
                 // タイマーリセット
-                countdownEl.textContent = '30';
+                clearInterval(countdownInterval);
+                timeLeftGlobal = 30;
+                document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = '30');
 
-                // トピックトークならドットリセット
-                if (cardId === 'topic') {
-                    if (topicDotIntervalId) {
-                        clearInterval(topicDotIntervalId);
-                        topicDotIntervalId = null;
-                    }
-                    document.querySelectorAll('[id^="topic-dot-"]').forEach(dot => {
-                        dot.classList.remove('bg-[#FF8C00]');
-                    });
-                }
-
-                // 発音なら円グラフアニメーションリセット
-                if (cardId === 'pronunciation') {
-                    const circle = document.querySelector('#pronunciation-circle .animate-circle');
-                    if (circle) {
-                        circle.style.animation = 'none';
-                        circle.offsetHeight; // trigger reflow
-                        circle.style.animation = null;
-                    }
-                }
+                // トピックドットリセット
+                clearInterval(topicInterval);
+                document.querySelectorAll('[id^="topic-dot-"]').forEach(dot => dot.classList.remove('bg-[#FF8C00]'));
+                
+                currentPlayingId = null;
             }
 
-            function togglePlay(cardId) {
-                if (currentPlayingCardId && currentPlayingCardId !== cardId) {
-                    resetCardUi(currentPlayingCardId);
-                }
-
+            function startPlaying(cardId) {
                 const btn = document.querySelector(`#${cardId}-play`);
+                const card = document.querySelector(`#card-${cardId}`);
                 const iconPlay = btn.querySelector('.icon-play');
                 const iconPause = btn.querySelector('.icon-pause');
-                const countdownEl = btn.closest('.glass-card').querySelector('.countdown-seconds');
 
-                const isPlaying = !iconPlay.classList.contains('hidden');
+                // 再生中UI
+                btn.classList.remove('bg-white/5', 'border', 'border-white/10');
+                btn.classList.add('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
+                iconPlay.classList.add('hidden');
+                iconPause.classList.remove('hidden');
+                card.classList.add('playing');
 
-                if (isPlaying) {
-                    // 再生開始
-                    currentPlayingCardId = cardId;
-
-                    // 新しいボタン UI
-                    btn.classList.remove('bg-white/5', 'border', 'border-white/10', 'group-hover:bg-orange-500');
-                    btn.classList.add('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
-                    iconPlay.classList.add('hidden');
-                    iconPause.classList.remove('hidden');
-
-                    // トピックトークならドットアニメーション開始
-                    if (cardId === 'topic') {
-                        let dotIndex = 0;
-                        if (topicDotIntervalId) clearInterval(topicDotIntervalId);
-                        
-                        // 6秒ごとにドットの色を変更するJavaScriptロジック
-                        // (30秒 / 5ドット = 6秒)
-                        topicDotIntervalId = setInterval(() => {
-                            dotIndex++;
-                            if (dotIndex <= 5) {
-                                document.querySelector(`#topic-dot-${dotIndex}`).classList.add('bg-[#FF8C00]');
-                            } else {
-                                clearInterval(topicDotIntervalId);
-                                topicDotIntervalId = null;
-                            }
-                        }, 6000);
-                    }
-
-                    // 発音なら円グラフアニメーション開始（CSSアニメーションをJavaScriptで再起動）
-                    if (cardId === 'pronunciation') {
-                        const circle = document.querySelector('#pronunciation-circle .animate-circle');
-                        if (circle) {
-                            circle.style.animation = 'none';
-                            circle.offsetHeight; // trigger reflow
-                            circle.style.animation = 'circular-fill 30s linear infinite';
-                        }
-                    }
-
-                } else {
-                    // 一時停止
-                    resetCardUi(cardId);
-                    currentPlayingCardId = null;
-                }
-            }
-
-            // カウントダウン同期スクリプト（全カード共通）
-            const allCountdownSeconds = document.querySelectorAll('.countdown-seconds');
-            let timeLeftGlobal = 30;
-            setInterval(() => {
-                if (currentPlayingCardId) {
+                // カウントダウン開始
+                countdownInterval = setInterval(() => {
                     timeLeftGlobal--;
                     if (timeLeftGlobal < 0) {
-                        timeLeftGlobal = 30; // ループ
-                        // 円グラフやドットは infinite なのでリセット不要
+                        resetAll();
+                        return;
                     }
-                    // 全トレーニングの秒数を同期して更新
-                    allCountdownSeconds.forEach(el => el.textContent = timeLeftGlobal);
+                    document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = timeLeftGlobal);
+                }, 1000);
+
+                // トピックトークのドットロジック (30秒/10個 = 3秒ごと)
+                if (cardId === 'topic') {
+                    let dotIdx = 1;
+                    topicInterval = setInterval(() => {
+                        const dot = document.querySelector(`#topic-dot-${dotIdx}`);
+                        if (dot) dot.classList.add('bg-[#FF8C00]');
+                        dotIdx++;
+                        if (dotIdx > 10) clearInterval(topicInterval);
+                    }, 3000);
                 }
-            }, 1000);
+
+                currentPlayingId = cardId;
+            }
 
             document.querySelectorAll('.play-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const cardId = e.currentTarget.id.replace('-play', '');
-                    togglePlay(cardId);
+                btn.addEventListener('click', () => {
+                    const id = btn.id.replace('-play', '');
+                    if (currentPlayingId === id) {
+                        resetAll();
+                    } else {
+                        resetAll();
+                        startPlaying(id);
+                    }
                 });
             });
         });
