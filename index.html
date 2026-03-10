@@ -3,169 +3,250 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THE DRESSING ROOM | Kepty English Premium</title>
+    <title>THE DRESSING ROOM | KEPTY PREMIUM</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --premium-orange: #FF8C00;
-            --matte-black: #121212;
-            --dark-gray: #1f1f1f;
+            --bg-dark: #0d0e12;
+            --card-bg: rgba(30, 32, 40, 0.7);
+            --accent-glow: rgba(255, 140, 0, 0.15);
         }
+
         body {
+            background-color: var(--bg-dark);
+            color: #e2e8f0;
             font-family: 'Inter', sans-serif;
-            background-color: var(--matte-black);
-            color: #ffffff;
-            margin: 0;
-            overflow-x: hidden;
+            letter-spacing: -0.01em;
         }
-        .orange-glow {
-            box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
+
+        .glass-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
         }
-        .glass-card:hover {
+
+        .orange-gradient-text {
+            background: linear-gradient(135deg, #FF8C00 0%, #FF5F00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .orange-border-glow:hover {
             border-color: var(--premium-orange);
-            background: rgba(255, 140, 0, 0.05);
+            box-shadow: 0 0 20px var(--accent-glow);
         }
-        .category-badge {
-            font-size: 0.7rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            padding: 2px 8px;
-            border-radius: 4px;
+
+        /* Audio Waveform Animation */
+        .wave-bar {
+            width: 3px;
             background: var(--premium-orange);
-            color: #000;
-            font-weight: 900;
+            border-radius: 10px;
+            animation: pulse 1s ease-in-out infinite;
         }
-        .timestamp {
-            color: var(--premium-orange);
-            font-family: 'Courier New', Courier, monospace;
+
+        @keyframes pulse {
+            0%, 100% { height: 8px; }
+            50% { height: 24px; }
         }
+
+        .wave-bar:nth-child(2) { animation-delay: 0.1s; }
+        .wave-bar:nth-child(3) { animation-delay: 0.2s; }
+        .wave-bar:nth-child(4) { animation-delay: 0.3s; }
+        .wave-bar:nth-child(5) { animation-delay: 0.4s; }
+
+        .sidebar-item {
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-item.active {
+            border-left: 3px solid var(--premium-orange);
+            background: linear-gradient(90deg, var(--accent-glow) 0%, transparent 100%);
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
     </style>
 </head>
-<body>
+<body class="flex h-screen overflow-hidden">
 
-    <nav class="p-6 border-b border-white/10 flex justify-between items-center">
-        <div class="flex items-center space-x-2">
-            <div class="w-3 h-3 bg-[#FF8C00] rounded-full animate-pulse"></div>
-            <span class="font-black text-xl tracking-tighter italic">KEPTY <span class="text-[#FF8C00]">PREMIUM</span></span>
+    <aside class="w-20 lg:w-64 glass-panel h-full flex flex-col items-center py-8 border-r border-white/5">
+        <div class="mb-12">
+            <div class="w-10 h-10 rounded-xl bg-[#FF8C00] flex items-center justify-center shadow-lg shadow-[#FF8C00]/20">
+                <span class="text-black font-black text-xl italic font-serif">K</span>
+            </div>
         </div>
-        <div class="text-xs uppercase tracking-widest text-gray-400">
-            Professional's Dressing Room
+        
+        <nav class="flex-1 w-full space-y-4 px-4">
+            <div class="sidebar-item active p-3 rounded-lg flex items-center space-x-4 cursor-pointer">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-[#FF8C00]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                <span class="hidden lg:block text-sm font-medium">Dashboard</span>
+            </div>
+            <div class="sidebar-item p-3 rounded-lg flex items-center space-x-4 cursor-pointer text-gray-500 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                <span class="hidden lg:block text-sm font-medium">Community</span>
+            </div>
+            <div class="sidebar-item p-3 rounded-lg flex items-center space-x-4 cursor-pointer text-gray-500 hover:text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                <span class="hidden lg:block text-sm font-medium">Stats</span>
+            </div>
+        </nav>
+
+        <div class="mt-auto">
+            <div class="w-10 h-10 rounded-full border-2 border-[#FF8C00] p-0.5">
+                <img src="https://i.pravatar.cc/100?u=rep" class="rounded-full overflow-hidden" alt="Rep">
+            </div>
         </div>
-    </nav>
+    </aside>
 
-    <header class="py-12 px-6 max-w-5xl mx-auto text-center">
-        <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tighter uppercase italic">
-            The <span class="text-[#FF8C00]">Dressing</span> Room
-        </h1>
-        <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto font-light leading-relaxed">
-            代表のトレーニングを30秒だけ「覗き見る」特権。 <br>
-            質と継続が共鳴する、プロフェッショナルの準備の場。
-        </p>
-    </header>
+    <main class="flex-1 overflow-y-auto p-8 lg:p-12 relative">
+        
+        <header class="flex justify-between items-end mb-12">
+            <div>
+                <h2 class="text-gray-500 text-xs font-bold uppercase tracking-[0.2em] mb-2">Vault Access</h2>
+                <h1 class="text-4xl lg:text-5xl font-extrabold italic tracking-tighter">THE <span class="orange-gradient-text">DRESSING ROOM</span></h1>
+            </div>
+            <div class="text-right hidden md:block">
+                <p class="text-xs text-gray-500 font-bold uppercase">Rep's Daily Workload</p>
+                <p class="mono text-2xl font-bold text-[#FF8C00]">03:30:15</p>
+            </div>
+        </header>
 
-    <section class="px-6 pb-12">
-        <div class="max-w-4xl mx-auto flex justify-center">
-            <div class="flex items-center space-x-8 bg-white/5 py-3 px-8 rounded-full border border-white/10">
-                <div class="text-center">
-                    <p class="text-[10px] text-gray-500 uppercase">Today's Session</p>
-                    <p class="font-bold timestamp">COMPLETED</p>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="glass-panel p-6 rounded-3xl relative overflow-hidden group">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-[#FF8C00]/5 rounded-full -mr-16 -mt-16 group-hover:bg-[#FF8C00]/10 transition-all"></div>
+                <h4 class="text-xs text-gray-500 font-bold uppercase mb-4">Daily Streak</h4>
+                <div class="flex items-end space-x-2">
+                    <span class="text-4xl font-black mono text-white">445</span>
+                    <span class="text-sm font-bold text-[#FF8C00] pb-1 uppercase italic">Days</span>
                 </div>
-                <div class="w-px h-8 bg-white/10"></div>
-                <div class="text-center">
-                    <p class="text-[10px] text-gray-500 uppercase">Upload Time</p>
-                    <p class="font-bold italic">08:45 AM</p>
+            </div>
+            <div class="glass-panel p-6 rounded-3xl">
+                <h4 class="text-xs text-gray-500 font-bold uppercase mb-4">Today's Focus</h4>
+                <div class="flex items-center space-x-3">
+                    <div class="w-2 h-2 rounded-full bg-green-500 animate-ping"></div>
+                    <span class="text-lg font-bold tracking-tight uppercase">High-Intensity</span>
                 </div>
-                <div class="w-px h-8 bg-white/10"></div>
-                <div class="text-center">
-                    <p class="text-[10px] text-gray-500 uppercase">Streak</p>
-                    <p class="font-bold italic text-[#FF8C00]">445 DAYS</p>
+            </div>
+            <div class="glass-panel p-6 rounded-3xl md:col-span-2 flex justify-between items-center">
+                <div>
+                    <h4 class="text-xs text-gray-500 font-bold uppercase mb-2">Latest Session</h4>
+                    <p class="text-xl font-bold italic">Topic Talk: Investment Strategy</p>
+                </div>
+                <div class="text-right">
+                    <p class="mono text-[#FF8C00] font-bold">08:45 AM</p>
+                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-widest">Uploaded</p>
                 </div>
             </div>
         </div>
-    </section>
 
-    <main class="px-6 pb-24 max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <h3 class="text-xs text-gray-500 font-bold uppercase tracking-[0.2em] mb-6 px-2">Confidential Training Logs</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
-            <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="alert('Playing Shadowing Session...')">
-                <div class="aspect-video bg-zinc-800 relative flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1478737270239-2fccd27ee086?auto=format&fit=crop&q=80&w=800" alt="Training" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity">
-                    <div class="z-10 bg-white/10 p-4 rounded-full border border-white/20 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <div class="glass-panel p-8 rounded-[2rem] orange-border-glow transition-all cursor-pointer group">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <span class="bg-white/5 text-[#FF8C00] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-[#FF8C00]/30">Shadowing</span>
+                        <h3 class="text-2xl font-bold mt-4 italic group-hover:text-[#FF8C00] transition-colors">VOGUE Interview Vol.14</h3>
                     </div>
-                    <div class="absolute top-4 left-4">
-                        <span class="category-badge">Shadowing</span>
-                    </div>
-                    <div class="absolute bottom-4 right-4 text-[10px] font-bold bg-black/60 px-2 py-1 rounded">
-                        00:30
-                    </div>
+                    <button class="w-14 h-14 bg-[#FF8C00] rounded-2xl flex items-center justify-center shadow-lg shadow-[#FF8C00]/20 transform group-hover:scale-105 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
                 </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-lg mb-1 italic">VOGUE - Interview Shadowing</h3>
-                    <p class="text-xs text-gray-500 italic">2026.03.10 | 08:15 AM Uploaded</p>
+                
+                <div class="flex items-center space-x-1 h-12 mb-6">
+                    <div class="wave-bar" style="height: 15px;"></div>
+                    <div class="wave-bar" style="height: 25px;"></div>
+                    <div class="wave-bar" style="height: 20px;"></div>
+                    <div class="wave-bar" style="height: 35px;"></div>
+                    <div class="wave-bar" style="height: 10px;"></div>
+                    <div class="wave-bar" style="height: 28px;"></div>
+                    <div class="wave-bar" style="height: 18px;"></div>
+                    <div class="wave-bar" style="height: 32px;"></div>
+                    <div class="wave-bar opacity-30" style="height: 12px; animation:none"></div>
+                    <div class="wave-bar opacity-30" style="height: 8px; animation:none"></div>
+                    <div class="wave-bar opacity-30" style="height: 15px; animation:none"></div>
+                    <div class="wave-bar opacity-30" style="height: 20px; animation:none"></div>
+                    <div class="flex-1 border-t border-dashed border-white/10 ml-4"></div>
                 </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="alert('Playing Sentence Building...')">
-                <div class="aspect-video bg-zinc-800 relative flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800" alt="Training" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity">
-                    <div class="z-10 bg-white/10 p-4 rounded-full border border-white/20 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    </div>
-                    <div class="absolute top-4 left-4">
-                        <span class="category-badge">Sentence Building</span>
-                    </div>
-                    <div class="absolute bottom-4 right-4 text-[10px] font-bold bg-black/60 px-2 py-1 rounded">
-                        00:30
-                    </div>
-                </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-lg mb-1 italic">High-Speed Translation</h3>
-                    <p class="text-xs text-gray-500 italic">2026.03.10 | 08:30 AM Uploaded</p>
+                
+                <div class="flex justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                    <span class="mono">00:30 SEC</span>
+                    <span>High Fidelity Audio</span>
                 </div>
             </div>
 
-            <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="alert('Playing Topic Talk...')">
-                <div class="aspect-video bg-zinc-800 relative flex items-center justify-center">
-                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800" alt="Training" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity">
-                    <div class="z-10 bg-white/10 p-4 rounded-full border border-white/20 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <div class="glass-panel p-8 rounded-[2rem] orange-border-glow transition-all cursor-pointer group">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <span class="bg-white/5 text-[#FF8C00] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-[#FF8C00]/30">Sentence Building</span>
+                        <h3 class="text-2xl font-bold mt-4 italic group-hover:text-[#FF8C00] transition-colors">Business Strategy Pitch</h3>
                     </div>
-                    <div class="absolute top-4 left-4">
-                        <span class="category-badge">Topic Talk</span>
-                    </div>
-                    <div class="absolute bottom-4 right-4 text-[10px] font-bold bg-black/60 px-2 py-1 rounded">
-                        00:30
+                    <button class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:bg-[#FF8C00] group-hover:text-black transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                </div>
+                <div class="flex items-center space-x-1 h-12 mb-6 opacity-40">
+                    <div class="w-full h-px bg-white/20 relative">
+                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1/3 h-1 bg-[#FF8C00] shadow-[0_0_10px_#FF8C00]"></div>
                     </div>
                 </div>
-                <div class="p-5">
-                    <h3 class="font-bold text-lg mb-1 italic">Investment & Strategy Talk</h3>
-                    <p class="text-xs text-gray-500 italic">2026.03.10 | 08:45 AM Uploaded</p>
+                <div class="flex justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                    <span class="mono">00:30 SEC</span>
+                    <span>Logic Flow Test</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 rounded-[2rem] orange-border-glow transition-all cursor-pointer group">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <span class="bg-white/5 text-[#FF8C00] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-[#FF8C00]/30">Topic Talk</span>
+                        <h3 class="text-2xl font-bold mt-4 italic group-hover:text-[#FF8C00] transition-colors">Post-Match Interview</h3>
+                    </div>
+                    <button class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:bg-[#FF8C00] group-hover:text-black transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                </div>
+                <div class="flex items-center space-x-1 h-12 mb-6">
+                    <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                    <div class="w-2 h-2 rounded-full bg-white/20"></div>
+                    <div class="flex-1 border-b border-white/5 ml-2"></div>
+                </div>
+                <div class="flex justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                    <span class="mono">00:30 SEC</span>
+                    <span>Fluency Focus</span>
+                </div>
+            </div>
+
+            <div class="glass-panel p-8 rounded-[2rem] orange-border-glow transition-all cursor-pointer group">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <span class="bg-white/5 text-[#FF8C00] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest border border-[#FF8C00]/30">Pronunciation</span>
+                        <h3 class="text-2xl font-bold mt-4 italic group-hover:text-[#FF8C00] transition-colors">Vowel & Stress Drill</h3>
+                    </div>
+                    <button class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10 group-hover:bg-[#FF8C00] group-hover:text-black transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </button>
+                </div>
+                <div class="flex items-center space-x-2 mb-6">
+                    <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+                        <div class="bg-gradient-to-r from-[#FF8C00] to-orange-400 h-full w-[75%]"></div>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                    <span class="mono">00:30 SEC</span>
+                    <span>Phonetic Accuracy</span>
                 </div>
             </div>
 
         </div>
+
+        <div class="fixed top-1/4 right-0 w-96 h-96 bg-[#FF8C00]/10 rounded-full blur-[120px] -z-10"></div>
+        <div class="fixed bottom-0 left-1/4 w-64 h-64 bg-blue-500/5 rounded-full blur-[100px] -z-10"></div>
+
     </main>
-
-    <footer class="fixed bottom-0 w-full bg-[#FF8C00] text-black py-2 px-6 overflow-hidden">
-        <div class="whitespace-nowrap flex space-x-12 font-black text-xs uppercase italic tracking-tighter">
-            <span>Quality over Quantity</span>
-            <span>Rep's Work: 3.5 Hours Today</span>
-            <span>Consistency: 445 Days</span>
-            <span>Authentic Training Archive</span>
-            <span>Quality over Quantity</span>
-            <span>Rep's Work: 3.5 Hours Today</span>
-            <span>Consistency: 445 Days</span>
-            <span>Authentic Training Archive</span>
-        </div>
-    </footer>
-
 </body>
 </html>
