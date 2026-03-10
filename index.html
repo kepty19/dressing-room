@@ -9,19 +9,18 @@
     <style>
         :root {
             --premium-orange: #FF8C00;
-            --bg-dark: #020617; /* 深みのあるテック・ブラック */
+            --bg-dark: #020617;
         }
 
         body {
             background-color: var(--bg-dark);
             background-image: 
-                /* 秘密の部屋を演出する微細なグリッド */
-                linear-gradient(rgba(255, 140, 0, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 140, 0, 0.03) 1px, transparent 1px),
-                /* ラグジュアリーな四隅のグロー */
-                radial-gradient(circle at 0% 0%, rgba(255, 140, 0, 0.08) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.12) 0%, transparent 50%);
-            background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%;
+                /* グリッドを強調（透明度を0.03から0.08へ） */
+                linear-gradient(rgba(255, 140, 0, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 140, 0, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 0% 0%, rgba(255, 140, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.15) 0%, transparent 50%);
+            background-size: 40px 40px, 40px 40px, 100% 100%, 100% 100%;
             color: #f8fafc;
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
@@ -30,21 +29,31 @@
         }
 
         .glass-card {
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* 統計カードのデザイン統一 */
+        /* 統計カードの背景をよりスタイリッシュに */
         .stat-card {
-            background: rgba(255, 140, 0, 0.02);
-            border: 1px solid rgba(255, 140, 0, 0.2);
+            background: radial-gradient(circle at top left, rgba(255, 140, 0, 0.05), transparent), rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255, 140, 0, 0.3);
             border-radius: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; right: 0;
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, rgba(255, 140, 0, 0.1) 0%, transparent 70%);
         }
 
-        /* ダッシュボードを意識した極太フォント */
         .premium-number {
             font-weight: 900;
             letter-spacing: -0.05em;
@@ -52,29 +61,20 @@
             line-height: 1;
         }
 
-        /* アバターフレームの調整 */
         .avatar-frame {
-            width: 110px;
-            height: 110px;
+            width: 110px; height: 110px;
             padding: 4px;
             background: linear-gradient(135deg, var(--premium-orange), #b45309);
             border-radius: 50%;
             box-shadow: 0 0 40px rgba(255, 140, 0, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
         }
 
         .avatar-img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             border-radius: 50%;
-            object-fit: cover; /* トイプードルの顔を中央に固定 */
-            background-color: #1e293b;
+            object-fit: cover;
         }
 
-        /* アニメーション要素 */
         .wave-bar {
             width: 5px;
             background: var(--premium-orange);
@@ -82,34 +82,20 @@
             animation: wave 1s ease-in-out infinite;
         }
 
-        @keyframes wave {
-            0%, 100% { height: 12px; }
-            50% { height: 32px; }
-        }
-
-        @keyframes light-move {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        @keyframes dot-fill {
-            0% { width: 0%; }
-            100% { width: 100%; }
-        }
-
-        @keyframes circular-fill {
-            0% { stroke-dashoffset: 339.29; }
-            100% { stroke-dashoffset: 0; }
-        }
+        @keyframes wave { 0%, 100% { height: 12px; } 50% { height: 32px; } }
+        @keyframes light-move { 0% { width: 0%; } 100% { width: 100%; } }
+        @keyframes dot-fill { 0% { width: 0%; } 100% { width: 100%; } }
+        @keyframes circular-fill { 0% { stroke-dashoffset: 339.29; } 100% { stroke-dashoffset: 0; } }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
+        .floating { animation: floating 4s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
-        .floating {
-            animation: floating 4s ease-in-out infinite;
-        }
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        /* タイトル一行化のための調整 */
+        .main-title {
+            color: var(--premium-orange);
+            text-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
+            white-space: nowrap;
         }
     </style>
 </head>
@@ -122,8 +108,8 @@
                 <img src="poodle.jpg" alt="CEO Avatar" class="avatar-img">
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-8">
-                THE <span style="color: var(--premium-orange);">DRESSING</span> ROOM
+            <h1 class="main-title text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-8 px-2">
+                THE DRESSING ROOM
             </h1>
 
             <div class="flex items-center space-x-3 bg-white/5 px-6 py-2 rounded-full border border-white/10">
@@ -132,32 +118,32 @@
             </div>
         </header>
 
-        <div class="grid grid-cols-2 gap-6 mb-20">
-            <div class="stat-card p-10 text-center glass-card">
-                <p class="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em] mb-4">Total Output</p>
+        <div class="grid grid-cols-2 gap-4 sm:gap-6 mb-20">
+            <div class="stat-card p-6 sm:p-10 text-center glass-card">
+                <p class="text-[9px] sm:text-[10px] text-orange-500 font-black uppercase tracking-[0.2em] mb-4">Total Output</p>
                 <div class="flex items-baseline justify-center">
-                    <span class="text-6xl premium-number">320</span>
-                    <span class="text-lg font-bold text-orange-500 ml-2 uppercase">Hrs</span>
+                    <span class="text-4xl sm:text-6xl premium-number">320</span>
+                    <span class="text-sm sm:text-lg font-bold text-orange-500 ml-2 uppercase">Hrs</span>
                 </div>
             </div>
-            <div class="stat-card p-10 text-center glass-card">
-                <p class="text-[10px] text-orange-500 font-black uppercase tracking-[0.2em] mb-4">Continuity</p>
+            <div class="stat-card p-6 sm:p-10 text-center glass-card">
+                <p class="text-[9px] sm:text-[10px] text-orange-500 font-black uppercase tracking-[0.2em] mb-4">Continuity</p>
                 <div class="flex items-baseline justify-center">
-                    <span class="text-6xl premium-number">445</span>
-                    <span class="text-lg font-bold text-orange-500 ml-2 uppercase">Days</span>
+                    <span class="text-4xl sm:text-6xl premium-number">445</span>
+                    <span class="text-sm sm:text-lg font-bold text-orange-500 ml-2 uppercase">Days</span>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
             
-            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Shadowing</span>
                     </div>
-                    <h3 class="text-2xl font-bold tracking-tight mb-8">Advanced Logic Flow</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Advanced Logic Flow</h3>
                     <div class="flex items-end space-x-1.5 h-10">
                         <div class="wave-bar" style="animation-delay: 0.1s"></div>
                         <div class="wave-bar" style="animation-delay: 0.3s"></div>
@@ -167,39 +153,41 @@
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button class="w-16 h-16 bg-[#FF8C00] rounded-full flex items-center justify-center shadow-lg shadow-orange-500/20 mb-3 group-hover:scale-110 transition-transform">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <button class="play-btn w-16 h-16 bg-[#FF8C00] rounded-full flex items-center justify-center shadow-lg shadow-orange-500/20 mb-3 group-hover:scale-110 transition-transform">
+                        <svg class="icon-play w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Sentence Building</span>
                     </div>
-                    <h3 class="text-2xl font-bold tracking-tight mb-8">Rapid Response Drill</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Rapid Response Drill</h3>
                     <div class="w-3/4 h-[2px] bg-white/5 relative overflow-hidden">
                         <div class="absolute left-0 top-0 h-full bg-[#FF8C00] animate-[light-move_30s_linear_infinite]"></div>
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <button class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
+                        <svg class="icon-play w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Topic Talk</span>
                     </div>
-                    <h3 class="text-2xl font-bold tracking-tight mb-8">Investment Dialogue</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Investment Dialogue</h3>
                     <div class="space-y-2">
                         <div class="flex space-x-1.5 relative h-2">
                             <div class="absolute left-0 top-0 h-full flex space-x-1.5 overflow-hidden animate-[dot-fill_30s_linear_infinite]">
@@ -216,20 +204,21 @@
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <button class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
+                        <svg class="icon-play w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2.5rem] flex flex-row justify-between items-center group min-h-[180px]">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Pronunciation</span>
                     </div>
-                    <h3 class="text-2xl font-bold tracking-tight mb-8">Phonetic Precision</h3>
+                    <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Phonetic Precision</h3>
                     <div class="relative w-12 h-12">
                         <svg class="w-full h-full transform -rotate-90" viewBox="0 0 120 120">
                             <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="12"/>
@@ -238,8 +227,9 @@
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    <button class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
+                        <svg class="icon-play w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        <svg class="icon-pause w-8 h-8 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
                     <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
@@ -255,12 +245,30 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // カウントダウン
             const counters = document.querySelectorAll('.countdown-seconds');
             let timeLeft = 30;
             setInterval(() => {
                 timeLeft = timeLeft <= 0 ? 30 : timeLeft - 1;
                 counters.forEach(c => c.textContent = timeLeft);
             }, 1000);
+
+            // 再生・停止ボタンのトグル
+            const playButtons = document.querySelectorAll('.play-btn');
+            playButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const iconPlay = btn.querySelector('.icon-play');
+                    const iconPause = btn.querySelector('.icon-pause');
+                    
+                    if (iconPlay.classList.contains('hidden')) {
+                        iconPlay.classList.remove('hidden');
+                        iconPause.classList.add('hidden');
+                    } else {
+                        iconPlay.classList.add('hidden');
+                        iconPause.classList.remove('hidden');
+                    }
+                });
+            });
         });
     </script>
 </body>
