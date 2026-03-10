@@ -9,7 +9,7 @@
     <style>
         :root {
             --premium-orange: #FF8C00;
-            --bg-dark: #020617; /* 深い紺色をベースにした黒 */
+            --bg-dark: #020617; /* 深みのあるテック・ブラック */
         }
 
         body {
@@ -18,9 +18,9 @@
                 /* 秘密の部屋を演出する微細なグリッド */
                 linear-gradient(rgba(255, 140, 0, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 140, 0, 0.03) 1px, transparent 1px),
-                /* 四隅からのラグジュアリーなグロー */
-                radial-gradient(circle at 0% 0%, rgba(255, 140, 0, 0.07) 0%, transparent 50%),
-                radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.1) 0%, transparent 50%);
+                /* ラグジュアリーな四隅のグロー */
+                radial-gradient(circle at 0% 0%, rgba(255, 140, 0, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(30, 58, 138, 0.12) 0%, transparent 50%);
             background-size: 30px 30px, 30px 30px, 100% 100%, 100% 100%;
             color: #f8fafc;
             font-family: 'Inter', sans-serif;
@@ -34,38 +34,47 @@
             backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
         }
 
+        /* 統計カードのデザイン統一 */
         .stat-card {
             background: rgba(255, 140, 0, 0.02);
             border: 1px solid rgba(255, 140, 0, 0.2);
-            border-radius: 2rem;
+            border-radius: 2.5rem;
         }
 
+        /* ダッシュボードを意識した極太フォント */
         .premium-number {
             font-weight: 900;
             letter-spacing: -0.05em;
             color: #ffffff;
+            line-height: 1;
         }
 
-        /* アバターの修正: 枠をさらに高級に */
+        /* アバターフレームの調整 */
         .avatar-frame {
             width: 110px;
             height: 110px;
             padding: 4px;
             background: linear-gradient(135deg, var(--premium-orange), #b45309);
             border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255, 140, 0, 0.3);
+            box-shadow: 0 0 40px rgba(255, 140, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
         }
 
         .avatar-img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: cover; /* トイプードルの顔を中央に固定 */
             background-color: #1e293b;
         }
 
+        /* アニメーション要素 */
         .wave-bar {
             width: 5px;
             background: var(--premium-orange);
@@ -110,10 +119,10 @@
         
         <header class="flex flex-col items-center text-center mb-20">
             <div class="avatar-frame mb-8 floating">
-                <img src="Generate_a_realistic_very_cute_toy_poodle_dog_icon_delpmaspu.jpg" alt="CEO Avatar" class="avatar-img">
+                <img src="poodle.jpg" alt="CEO Avatar" class="avatar-img">
             </div>
             
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-6">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight mb-8">
                 THE <span style="color: var(--premium-orange);">DRESSING</span> ROOM
             </h1>
 
@@ -142,7 +151,7 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
             
-            <div class="glass-card p-8 rounded-[2rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -157,15 +166,15 @@
                         <div class="wave-bar" style="animation-delay: 0.4s"></div>
                     </div>
                 </div>
-                <div class="text-center flex flex-col items-center">
+                <div class="text-center flex flex-col items-center ml-4">
                     <button class="w-16 h-16 bg-[#FF8C00] rounded-full flex items-center justify-center shadow-lg shadow-orange-500/20 mb-3 group-hover:scale-110 transition-transform">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
-                    <div class="mono text-xs font-bold text-orange-500"><span class="countdown-seconds">30</span>S</div>
+                    <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -176,15 +185,15 @@
                         <div class="absolute left-0 top-0 h-full bg-[#FF8C00] animate-[light-move_30s_linear_infinite]"></div>
                     </div>
                 </div>
-                <div class="text-center flex flex-col items-center">
+                <div class="text-center flex flex-col items-center ml-4">
                     <button class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
-                    <div class="mono text-xs font-bold text-orange-500"><span class="countdown-seconds">30</span>S</div>
+                    <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -206,15 +215,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="text-center flex flex-col items-center">
+                <div class="text-center flex flex-col items-center ml-4">
                     <button class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
-                    <div class="mono text-xs font-bold text-orange-500"><span class="countdown-seconds">30</span>S</div>
+                    <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
-            <div class="glass-card p-8 rounded-[2rem] flex justify-between items-center group">
+            <div class="glass-card p-8 rounded-[2.5rem] flex justify-between items-center group">
                 <div class="flex-1">
                     <div class="flex items-center space-x-2 mb-4">
                         <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -228,11 +237,11 @@
                         </svg>
                     </div>
                 </div>
-                <div class="text-center flex flex-col items-center">
+                <div class="text-center flex flex-col items-center ml-4">
                     <button class="w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500 group-hover:text-black transition-all">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
-                    <div class="mono text-xs font-bold text-orange-500"><span class="countdown-seconds">30</span>S</div>
+                    <div class="mono text-xs font-bold text-orange-500 tracking-tighter"><span class="countdown-seconds">30</span>S</div>
                 </div>
             </div>
 
