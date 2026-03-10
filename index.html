@@ -43,7 +43,6 @@
             position: relative;
         }
 
-        /* 統計数値の強調を下げた新スタイル */
         .premium-number-subtle {
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -167,7 +166,7 @@
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="shadowing-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                    <button id="shadowing-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 transition-all">
                         <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
@@ -258,35 +257,55 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             let currentPlayingId = null;
-            let topicInterval = null;
             let countdownInterval = null;
             let timeLeftGlobal = 30;
 
             function resetAll() {
-                // すべてのボタンUIを初期状態にリセット
+                // すべてのボタンUIを確実に初期状態（透過、白三角）にリセット
                 document.querySelectorAll('.play-btn').forEach(btn => {
                     const iconPlay = btn.querySelector('.icon-play');
                     const iconPause = btn.querySelector('.icon-pause');
+                    
+                    // 背景と影をクリア
                     btn.classList.remove('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
+                    // 初期背景を追加
                     btn.classList.add('bg-white/5', 'border', 'border-white/10');
+                    
+                    // アイコンの状態を戻す
                     iconPlay.classList.remove('hidden');
-                    iconPlay.classList.add('text-white');
+                    iconPlay.classList.add('text-white'); 
                     iconPause.classList.add('hidden');
                 });
 
-                // アニメーション停止
+                // すべてのアニメーション（波形、線、円）を停止
                 document.querySelectorAll('.glass-card').forEach(card => {
                     card.classList.remove('playing');
                 });
 
-                // ロジッククリア
+                // タイマー停止
                 clearInterval(countdownInterval);
-                clearInterval(topicInterval);
                 timeLeftGlobal = 30;
                 document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = '30');
+
+                // トピックトークの全ドットをリセット
                 document.querySelectorAll('[id^="topic-dot-"]').forEach(dot => dot.classList.remove('bg-[#FF8C00]'));
                 
                 currentPlayingId = null;
+            }
+
+            function updateTopicDots(seconds) {
+                // 音源(30秒)を100とした時、10ずつ進む（＝3秒で1個）
+                // 経過時間を計算
+                const elapsed = 30 - seconds;
+                const activeDots = Math.floor(elapsed / 3);
+                
+                document.querySelectorAll('[id^="topic-dot-"]').forEach((dot, index) => {
+                    if (index < activeDots) {
+                        dot.classList.add('bg-[#FF8C00]');
+                    } else {
+                        dot.classList.remove('bg-[#FF8C00]');
+                    }
+                });
             }
 
             function startPlaying(cardId) {
@@ -295,33 +314,33 @@
                 const iconPlay = btn.querySelector('.icon-play');
                 const iconPause = btn.querySelector('.icon-pause');
 
-                // 再生開始
+                // 再生中UI
                 btn.classList.remove('bg-white/5', 'border', 'border-white/10');
                 btn.classList.add('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
                 iconPlay.classList.add('hidden');
                 iconPause.classList.remove('hidden');
+                
+                // アニメーション実行クラス付与
                 card.classList.add('playing');
 
-                // カウントダウン
+                // 中央集中管理型カウントダウン開始
                 countdownInterval = setInterval(() => {
                     timeLeftGlobal--;
+                    
                     if (timeLeftGlobal < 0) {
                         resetAll();
                         return;
                     }
-                    document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = timeLeftGlobal);
-                }, 1000);
 
-                // トピックトークのドット進行 (10個 = 3秒ごと)
-                if (cardId === 'topic') {
-                    let dotIdx = 1;
-                    topicInterval = setInterval(() => {
-                        const dot = document.querySelector(`#topic-dot-${dotIdx}`);
-                        if (dot) dot.classList.add('bg-[#FF8C00]');
-                        dotIdx++;
-                        if (dotIdx > 10) clearInterval(topicInterval);
-                    }, 3000);
-                }
+                    // 数字の更新
+                    document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = timeLeftGlobal);
+
+                    // トピックトーク再生中の場合のみドットを更新（タイマーに完全同期）
+                    if (cardId === 'topic') {
+                        updateTopicDots(timeLeftGlobal);
+                    }
+
+                }, 1000);
 
                 currentPlayingId = cardId;
             }
