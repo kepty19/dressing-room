@@ -53,7 +53,7 @@
             filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.3));
         }
 
-        /* キャラクターの浮遊アニメーション */
+        /* 浮遊アニメーションはアバター枠全体に適用 */
         .floating {
             animation: floating 3s ease-in-out infinite;
         }
@@ -79,9 +79,10 @@
             100% { width: 100%; }
         }
 
-        @keyframes bar-fill {
-            0% { width: 0%; }
-            100% { width: 100%; }
+        /* 円グラフアニメーション */
+        @keyframes circular-fill {
+            0% { stroke-dashoffset: 339.29; } /* 円周 */
+            100% { stroke-dashoffset: 0; }
         }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
@@ -92,36 +93,21 @@
     <div class="max-w-6xl mx-auto">
         
         <header class="flex flex-col items-center text-center mb-16">
-            <div class="avatar-container mb-6 floating">
-                <svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="45" stroke="#FF8C00" stroke-width="1.5" stroke-dasharray="10 5" opacity="0.5"/>
-                    <circle cx="50" cy="50" r="38" fill="rgba(255,140,0,0.05)" stroke="#FF8C00" stroke-width="2"/>
-                    
-                    <path d="M25 40C20 40 15 50 15 60C15 70 20 75 25 75C30 75 35 70 35 60C35 50 30 40 25 40Z" fill="#FF8C00"/>
-                    <path d="M75 40C80 40 85 50 85 60C85 70 80 75 75 75C70 75 65 70 65 60C65 50 70 40 75 40Z" fill="#FF8C00"/>
-                    
-                    <circle cx="50" cy="55" r="20" fill="#FF8C00"/>
-                    
-                    <circle cx="42" cy="50" r="3" fill="black"/>
-                    <circle cx="58" cy="50" r="3" fill="black"/>
-                    
-                    <circle cx="50" cy="58" r="4" fill="black"/>
-                    
-                    <path d="M45 65C45 65 48 68 50 68C52 68 55 65 55 65" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
+            <div class="avatar-container mb-6 floating relative w-[100px] h-[100px] border-4 border-[#FF8C00] rounded-full overflow-hidden shadow-[0_0_20px_#FF8C00/50]">
+                <img src="image_2.png" alt="CEO Avatar" class="w-full h-full object-cover">
             </div>
             
             <p class="text-[10px] font-bold uppercase tracking-[0.4em] text-gray-500 mb-2">Exclusive Training Access</p>
             <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black italic tracking-tighter mb-4 whitespace-nowrap overflow-hidden text-ellipsis">
                 THE <span class="orange-glow-text">DRESSING</span> ROOM
             </h1>
-            <div class="glass-card px-6 py-2 rounded-full inline-flex items-center space-x-3 border border-orange-900/30">
+            <div class="glass-card px-6 py-2 rounded-full inline-flex items-center space-x-3 border border-orange-900/30 relative">
                 <span class="w-2 h-2 rounded-full bg-[#FF8C00] animate-pulse"></span>
                 <span class="text-xs font-bold mono">CEO AVATAR IS ACTIVE: 03H 45M TODAY</span>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+        <div class="grid grid-cols-2 gap-6 mb-16 max-w-4xl mx-auto">
             <div class="glass-card p-8 rounded-[2.5rem] text-center group hover:border-[#FF8C00]/40 transition-all">
                 <p class="text-[10px] text-gray-500 font-bold uppercase mb-2">Total Output</p>
                 <p class="text-4xl font-black mono italic">320<span class="text-sm ml-1 text-[#FF8C00]">HRS</span></p>
@@ -130,16 +116,15 @@
                 <p class="text-[10px] text-[#FF8C00] font-bold uppercase mb-2">Continuity</p>
                 <p class="text-4xl font-black mono italic orange-glow-text">445<span class="text-sm ml-1">DAYS</span></p>
             </div>
-            <div class="glass-card p-8 rounded-[2.5rem] text-center group hover:border-[#FF8C00]/40 transition-all">
-                <p class="text-[10px] text-gray-500 font-bold uppercase mb-2">Intensity</p>
-                <p class="text-4xl font-black mono italic text-white">MAX</p>
             </div>
-        </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24 relative">
             
             <div class="glass-card p-8 rounded-[2.5rem] group hover:bg-white/[0.04] transition-all overflow-hidden relative">
-                <div class="flex justify-between items-start mb-10">
+                <div class="absolute top-6 right-8 text-sm font-bold mono text-[#FF8C00] z-20">
+                    <span class="countdown-seconds">30</span>s
+                </div>
+                <div class="flex justify-between items-start mb-10 z-10 relative">
                     <div>
                         <div class="flex items-center space-x-2 mb-4">
                             <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -147,12 +132,12 @@
                         </div>
                         <h3 class="text-2xl font-bold italic tracking-tight">Advanced Logic Flow</h3>
                     </div>
-                    <button class="w-14 h-14 bg-[#FF8C00] rounded-full flex items-center justify-center shadow-lg shadow-[#FF8C00]/30 transform group-hover:scale-110 transition-all z-10">
+                    <button class="w-14 h-14 bg-[#FF8C00] rounded-full flex items-center justify-center shadow-lg shadow-[#FF8C00]/30 transform group-hover:scale-110 transition-all z-10 relative">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
                 </div>
-                <div class="h-12 flex items-center mb-6">
-                    <div class="flex items-end space-x-1.5 h-full transform animate-[wave-move_30s_linear_infinite]">
+                <div class="h-12 flex items-center mb-6 relative overflow-hidden">
+                    <div class="flex items-end space-x-1.5 h-full transform animate-[wave-move_30s_linear_infinite] z-0">
                         <div class="wave-bar" style="animation-delay: 0.1s"></div>
                         <div class="wave-bar" style="animation-delay: 0.3s"></div>
                         <div class="wave-bar" style="animation-delay: 0.2s"></div>
@@ -161,15 +146,19 @@
                         <div class="wave-bar" style="animation-delay: 0.1s"></div>
                         <div class="wave-bar" style="animation-delay: 0.3s"></div>
                         <div class="wave-bar" style="animation-delay: 0.6s"></div>
-                        <span class="mono text-[10px] text-gray-500 mb-1">0:30</span>
                     </div>
-                    <div class="flex-1 border-b border-white/10 mb-2 ml-4"></div>
+                    <div class="absolute right-0 top-0 h-full flex items-center z-10 px-4">
+                        <div class="flex-1 border-b border-white/10 ml-4"></div>
+                    </div>
                 </div>
                 <p class="text-[10px] text-gray-500 font-bold italic uppercase">Published at 08:30 AM</p>
             </div>
 
             <div class="glass-card p-8 rounded-[2.5rem] group hover:bg-white/[0.04] transition-all overflow-hidden relative">
-                <div class="flex justify-between items-start mb-10">
+                <div class="absolute top-6 right-8 text-sm font-bold mono text-[#FF8C00] z-20">
+                    <span class="countdown-seconds">30</span>s
+                </div>
+                <div class="flex justify-between items-start mb-10 z-10 relative">
                     <div>
                         <div class="flex items-center space-x-2 mb-4">
                             <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -177,11 +166,11 @@
                         </div>
                         <h3 class="text-2xl font-bold italic tracking-tight">Rapid Response Drill</h3>
                     </div>
-                    <button class="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-[#FF8C00] hover:text-black transition-all z-10">
+                    <button class="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-[#FF8C00] hover:text-black transition-all z-10 relative">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
                 </div>
-                <div class="h-12 flex items-center mb-6">
+                <div class="h-12 flex items-center mb-6 z-0">
                     <div class="w-full bg-white/5 h-[1px] relative overflow-hidden">
                         <div class="absolute left-0 top-0 h-full bg-[#FF8C00] shadow-[0_0_10px_#FF8C00] animate-[light-move_30s_linear_infinite]"></div>
                     </div>
@@ -190,7 +179,10 @@
             </div>
 
             <div class="glass-card p-8 rounded-[2.5rem] group hover:bg-white/[0.04] transition-all overflow-hidden relative">
-                <div class="flex justify-between items-start mb-10">
+                <div class="absolute top-6 right-8 text-sm font-bold mono text-[#FF8C00] z-20">
+                    <span class="countdown-seconds">30</span>s
+                </div>
+                <div class="flex justify-between items-start mb-10 z-10 relative">
                     <div>
                         <div class="flex items-center space-x-2 mb-4">
                             <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -198,12 +190,12 @@
                         </div>
                         <h3 class="text-2xl font-bold italic tracking-tight">Investment Dialogue</h3>
                     </div>
-                    <button class="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-[#FF8C00] hover:text-black transition-all z-10">
+                    <button class="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-[#FF8C00] hover:text-black transition-all z-10 relative">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
                 </div>
-                <div class="h-12 flex items-center mb-6 relative overflow-hidden">
-                    <div class="flex space-x-1 relative z-0">
+                <div class="h-12 flex flex-col justify-center mb-6 z-0 space-y-2">
+                    <div class="flex space-x-1 relative">
                         <div class="w-2 h-2 rounded-full bg-white/10"></div>
                         <div class="w-2 h-2 rounded-full bg-white/10"></div>
                         <div class="w-2 h-2 rounded-full bg-white/10"></div>
@@ -214,25 +206,52 @@
                         <div class="w-2 h-2 rounded-full bg-white/10"></div>
                         <div class="w-2 h-2 rounded-full bg-white/10"></div>
                         <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="absolute left-0 top-0 h-full flex space-x-1 z-10 overflow-hidden animate-[dot-fill_30s_linear_infinite]">
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                        </div>
                     </div>
-                    <div class="absolute left-0 top-0 h-full flex space-x-1 z-10 overflow-hidden animate-[dot-fill_30s_linear_infinite]">
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
-                        <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                    <div class="flex space-x-1 relative">
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="w-2 h-2 rounded-full bg-white/10"></div>
+                        <div class="absolute left-0 top-0 h-full flex space-x-1 z-10 overflow-hidden animate-[dot-fill_30s_linear_infinite]">
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                            <div class="w-2 h-2 rounded-full bg-[#FF8C00]"></div>
+                        </div>
                     </div>
                 </div>
                 <p class="text-[10px] text-gray-500 font-bold italic uppercase">Published at 09:15 AM</p>
             </div>
 
             <div class="glass-card p-8 rounded-[2.5rem] group hover:bg-white/[0.04] transition-all overflow-hidden relative">
-                <div class="flex justify-between items-start mb-10">
+                <div class="absolute top-6 right-8 text-sm font-bold mono text-[#FF8C00] z-20">
+                    <span class="countdown-seconds">30</span>s
+                </div>
+                <div class="flex justify-between items-start mb-10 z-10 relative">
                     <div>
                         <div class="flex items-center space-x-2 mb-4">
                             <span class="w-1.5 h-1.5 bg-[#FF8C00] rounded-full"></span>
@@ -240,14 +259,21 @@
                         </div>
                         <h3 class="text-2xl font-bold italic tracking-tight">Phonetic Precision</h3>
                     </div>
-                    <button class="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-[#FF8C00] hover:text-black transition-all z-10">
+                    <button class="w-14 h-14 bg-white/5 border border-white/10 rounded-full flex items-center justify-center hover:bg-[#FF8C00] hover:text-black transition-all z-10 relative">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </button>
                 </div>
-                <div class="h-12 flex items-center mb-6">
-                    <div class="w-full bg-white/5 h-1 rounded-full overflow-hidden">
-                        <div class="bg-gradient-to-r from-[#FF8C00] to-orange-400 h-full animate-[bar-fill_30s_linear_infinite]"></div>
-                    </div>
+                <div class="h-20 flex items-center justify-center mb-6 z-0">
+                    <svg class="w-20 h-20 transform -rotate-90" viewBox="0 0 120 120">
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
+                        <circle cx="60" cy="60" r="54" fill="none" stroke="url(#premium-orange-gradient)" stroke-width="6" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" class="animate-[circular-fill_30s_linear_infinite]"/>
+                        <defs>
+                            <linearGradient id="premium-orange-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#FF8C00" />
+                                <stop offset="100%" stop-color="#FF5F00" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
                 </div>
                 <p class="text-[10px] text-gray-500 font-bold italic uppercase">Published at 09:30 AM</p>
             </div>
@@ -261,6 +287,28 @@
         </footer>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const countdownElements = document.querySelectorAll('.countdown-seconds');
+            const totalDuration = 30; // 30 seconds
+            let timeLeft = totalDuration;
+
+            // Update all countdown texts simultaneously
+            const timerId = setInterval(() => {
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    timeLeft = totalDuration; // Loop back to 30
+                }
+
+                countdownElements.forEach(el => {
+                    el.textContent = timeLeft;
+                });
+
+            }, 1000); // every second
+        });
+    </script>
 
 </body>
 </html>
