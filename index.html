@@ -64,37 +64,27 @@
             object-fit: cover;
         }
 
+        /* アニメーション停止制御用クラス */
         .wave-bar {
-            width: 5px;
-            background: var(--premium-orange);
-            border-radius: 10px;
-            height: 12px;
-            animation: wave 1s ease-in-out infinite;
-            animation-play-state: paused;
+            width: 5px; background: var(--premium-orange); border-radius: 10px; height: 12px;
+            animation: wave 1s ease-in-out infinite; animation-play-state: paused;
         }
         .playing .wave-bar { animation-play-state: running; }
-
         @keyframes wave { 0%, 100% { height: 12px; } 50% { height: 32px; } }
 
         .light-line-active {
             position: absolute; left: 0; top: 0; height: 100%; background: var(--premium-orange);
-            box-shadow: 0 0 10px var(--premium-orange);
-            width: 0%;
-            animation: light-move 30s linear infinite;
-            animation-play-state: paused;
+            box-shadow: 0 0 10px var(--premium-orange); width: 0%;
+            animation: light-move 30s linear infinite; animation-play-state: paused;
         }
         .playing .light-line-active { animation-play-state: running; }
-
         @keyframes light-move { 0% { width: 0%; } 100% { width: 100%; } }
 
         .circle-anim {
-            stroke-dasharray: 339.29;
-            stroke-dashoffset: 339.29;
-            animation: circular-fill 30s linear infinite;
-            animation-play-state: paused;
+            stroke-dasharray: 339.29; stroke-dashoffset: 339.29;
+            animation: circular-fill 30s linear infinite; animation-play-state: paused;
         }
         .playing .circle-anim { animation-play-state: running; }
-
         @keyframes circular-fill { 0% { stroke-dashoffset: 339.29; } 100% { stroke-dashoffset: 0; } }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
@@ -102,9 +92,7 @@
         @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         .main-title {
-            color: var(--premium-orange);
-            text-shadow: 0 0 20px rgba(255, 140, 0, 0.3);
-            white-space: nowrap;
+            color: var(--premium-orange); text-shadow: 0 0 20px rgba(255, 140, 0, 0.3); white-space: nowrap;
         }
     </style>
 </head>
@@ -116,15 +104,9 @@
             <div class="avatar-frame mb-8 floating">
                 <img src="poodle.jpg" alt="CEO Avatar" class="avatar-img">
             </div>
-            
-            <h1 class="main-title text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-4 px-2">
-                THE DRESSING ROOM
-            </h1>
-            
+            <h1 class="main-title text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter mb-4 px-2">THE DRESSING ROOM</h1>
             <p class="text-gray-400 text-sm sm:text-base font-medium mb-6">CEOのトレーニングを覗ける部屋です</p>
-            
             <div class="w-full max-w-md h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-10"></div>
-
             <div class="flex items-center space-x-3 bg-white/5 px-6 py-2 rounded-full border border-white/10">
                 <span class="w-2 h-2 rounded-full bg-[#FF8C00] animate-pulse"></span>
                 <span class="text-[11px] font-bold tracking-widest uppercase text-gray-400">CEO AVATAR IS ACTIVE: <span class="text-white">03H 45M TODAY</span></span>
@@ -201,17 +183,17 @@
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Topic Talk</span>
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Investment Dialogue</h3>
-                    <div class="flex space-x-1 relative h-2">
-                        <div id="topic-dot-1" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-2" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-3" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-4" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-5" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-6" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-7" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-8" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-9" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
-                        <div id="topic-dot-10" class="w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                    <div id="dot-container" class="flex space-x-1 relative h-2">
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
+                        <div class="topic-dot w-2 h-2 rounded-full bg-white/10 transition-colors duration-300"></div>
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
@@ -261,51 +243,29 @@
             let timeLeftGlobal = 30;
 
             function resetAll() {
-                // すべてのボタンUIを確実に初期状態（透過、白三角）にリセット
+                // ボタンUIリセット
                 document.querySelectorAll('.play-btn').forEach(btn => {
                     const iconPlay = btn.querySelector('.icon-play');
                     const iconPause = btn.querySelector('.icon-pause');
-                    
-                    // 背景と影をクリア
                     btn.classList.remove('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
-                    // 初期背景を追加
                     btn.classList.add('bg-white/5', 'border', 'border-white/10');
-                    
-                    // アイコンの状態を戻す
                     iconPlay.classList.remove('hidden');
-                    iconPlay.classList.add('text-white'); 
+                    iconPlay.classList.add('text-white');
                     iconPause.classList.add('hidden');
                 });
 
-                // すべてのアニメーション（波形、線、円）を停止
-                document.querySelectorAll('.glass-card').forEach(card => {
-                    card.classList.remove('playing');
-                });
+                // アニメーション停止
+                document.querySelectorAll('.glass-card').forEach(card => card.classList.remove('playing'));
+
+                // ドットリセット
+                document.querySelectorAll('.topic-dot').forEach(dot => dot.classList.remove('bg-[#FF8C00]'));
 
                 // タイマー停止
                 clearInterval(countdownInterval);
                 timeLeftGlobal = 30;
                 document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = '30');
-
-                // トピックトークの全ドットをリセット
-                document.querySelectorAll('[id^="topic-dot-"]').forEach(dot => dot.classList.remove('bg-[#FF8C00]'));
                 
                 currentPlayingId = null;
-            }
-
-            function updateTopicDots(seconds) {
-                // 音源(30秒)を100とした時、10ずつ進む（＝3秒で1個）
-                // 経過時間を計算
-                const elapsed = 30 - seconds;
-                const activeDots = Math.floor(elapsed / 3);
-                
-                document.querySelectorAll('[id^="topic-dot-"]').forEach((dot, index) => {
-                    if (index < activeDots) {
-                        dot.classList.add('bg-[#FF8C00]');
-                    } else {
-                        dot.classList.remove('bg-[#FF8C00]');
-                    }
-                });
             }
 
             function startPlaying(cardId) {
@@ -319,11 +279,11 @@
                 btn.classList.add('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
                 iconPlay.classList.add('hidden');
                 iconPause.classList.remove('hidden');
-                
-                // アニメーション実行クラス付与
                 card.classList.add('playing');
 
-                // 中央集中管理型カウントダウン開始
+                currentPlayingId = cardId;
+
+                // カウントダウン開始
                 countdownInterval = setInterval(() => {
                     timeLeftGlobal--;
                     
@@ -335,14 +295,20 @@
                     // 数字の更新
                     document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = timeLeftGlobal);
 
-                    // トピックトーク再生中の場合のみドットを更新（タイマーに完全同期）
-                    if (cardId === 'topic') {
-                        updateTopicDots(timeLeftGlobal);
+                    // ドット進行ロジック (30秒で10個 = 3秒ごとに1点灯)
+                    if (currentPlayingId === 'topic') {
+                        const elapsed = 30 - timeLeftGlobal;
+                        const dotsToLight = Math.floor(elapsed / 3);
+                        const dots = document.querySelectorAll('.topic-dot');
+                        dots.forEach((dot, index) => {
+                            if (index < dotsToLight) {
+                                dot.classList.add('bg-[#FF8C00]');
+                            } else {
+                                dot.classList.remove('bg-[#FF8C00]');
+                            }
+                        });
                     }
-
                 }, 1000);
-
-                currentPlayingId = cardId;
             }
 
             document.querySelectorAll('.play-btn').forEach(btn => {
