@@ -64,7 +64,7 @@
             object-fit: cover;
         }
 
-        /* アニメーションのデフォルト停止状態 */
+        /* 波形アニメーション制御 */
         .wave-bar {
             width: 5px;
             background: var(--premium-orange);
@@ -74,21 +74,20 @@
             animation-play-state: paused;
         }
         .playing .wave-bar { animation-play-state: running; }
-
         @keyframes wave { 0%, 100% { height: 12px; } 50% { height: 32px; } }
 
-        .light-line-bg { width: 100%; height: 2px; background: rgba(255,255,255,0.05); position: relative; overflow: hidden; }
+        /* 光の線アニメーション制御 */
         .light-line-active {
-            position: absolute; left: 0; top: 0; h-full; background: var(--premium-orange);
+            position: absolute; left: 0; top: 0; height: 100%; background: var(--premium-orange);
             box-shadow: 0 0 10px var(--premium-orange);
             width: 0%;
             animation: light-move 30s linear infinite;
             animation-play-state: paused;
         }
         .playing .light-line-active { animation-play-state: running; }
-
         @keyframes light-move { 0% { width: 0%; } 100% { width: 100%; } }
 
+        /* 円グラフアニメーション制御 */
         .circle-anim {
             stroke-dasharray: 339.29;
             stroke-dashoffset: 339.29;
@@ -96,7 +95,6 @@
             animation-play-state: paused;
         }
         .playing .circle-anim { animation-play-state: running; }
-
         @keyframes circular-fill { 0% { stroke-dashoffset: 339.29; } 100% { stroke-dashoffset: 0; } }
 
         .mono { font-family: 'JetBrains Mono', monospace; }
@@ -168,7 +166,7 @@
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="shadowing-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                    <button id="shadowing-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 transition-all">
                         <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
@@ -183,12 +181,12 @@
                         <span class="text-[10px] font-black uppercase tracking-widest text-orange-500">Sentence Building</span>
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Rapid Response Drill</h3>
-                    <div class="light-line-bg w-3/4">
+                    <div class="w-3/4 h-[2px] bg-white/5 relative overflow-hidden">
                         <div class="light-line-active"></div>
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="sentence-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                    <button id="sentence-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 transition-all">
                         <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
@@ -204,20 +202,20 @@
                     </div>
                     <h3 class="text-xl sm:text-2xl font-bold tracking-tight mb-8">Investment Dialogue</h3>
                     <div class="flex space-x-1 relative h-2">
-                        <div id="topic-dot-1" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-2" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-3" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-4" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-5" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-6" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-7" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-8" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-9" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
-                        <div id="topic-dot-10" class="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-1" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-2" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-3" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-4" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-5" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-6" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-7" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-8" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-9" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
+                        <div id="topic-dot-10" class="w-2 h-2 rounded-full bg-white/10 transition-colors"></div>
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="topic-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                    <button id="topic-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 transition-all">
                         <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
@@ -240,7 +238,7 @@
                     </div>
                 </div>
                 <div class="text-center flex flex-col items-center ml-4">
-                    <button id="pronunciation-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 group-hover:bg-orange-500/10 transition-all">
+                    <button id="pronunciation-play" class="play-btn w-16 h-16 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mb-3 transition-all">
                         <svg class="icon-play w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                         <svg class="icon-pause w-8 h-8 text-black hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
@@ -264,29 +262,29 @@
             let timeLeftGlobal = 30;
 
             function resetAll() {
-                // すべてのボタンUIをリセット
+                // すべてのボタンUIを初期状態（bg-white/5, 白色三角）に強制リセット
                 document.querySelectorAll('.play-btn').forEach(btn => {
                     const iconPlay = btn.querySelector('.icon-play');
                     const iconPause = btn.querySelector('.icon-pause');
-                    btn.classList.add('bg-white/5', 'border', 'border-white/10');
+                    
                     btn.classList.remove('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
+                    btn.classList.add('bg-white/5', 'border', 'border-white/10');
+                    
                     iconPlay.classList.remove('hidden');
-                    iconPlay.classList.add('text-white'); // 白色を保証
+                    iconPlay.classList.add('text-white'); // 三角形を白に戻す
                     iconPause.classList.add('hidden');
                 });
 
-                // アニメーション停止
+                // アニメーションをすべて停止
                 document.querySelectorAll('.glass-card').forEach(card => {
                     card.classList.remove('playing');
                 });
 
-                // タイマーリセット
+                // タイマーとドットロジックのクリア
                 clearInterval(countdownInterval);
+                clearInterval(topicInterval);
                 timeLeftGlobal = 30;
                 document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = '30');
-
-                // トピックドットリセット
-                clearInterval(topicInterval);
                 document.querySelectorAll('[id^="topic-dot-"]').forEach(dot => dot.classList.remove('bg-[#FF8C00]'));
                 
                 currentPlayingId = null;
@@ -298,14 +296,16 @@
                 const iconPlay = btn.querySelector('.icon-play');
                 const iconPause = btn.querySelector('.icon-pause');
 
-                // 再生中UI
+                // 再生中UI（濃いオレンジ）
                 btn.classList.remove('bg-white/5', 'border', 'border-white/10');
                 btn.classList.add('bg-[#FF8C00]', 'shadow-lg', 'shadow-orange-500/20');
                 iconPlay.classList.add('hidden');
                 iconPause.classList.remove('hidden');
+                
+                // アニメーションスタート
                 card.classList.add('playing');
 
-                // カウントダウン開始
+                // 共通カウントダウン開始
                 countdownInterval = setInterval(() => {
                     timeLeftGlobal--;
                     if (timeLeftGlobal < 0) {
@@ -315,7 +315,7 @@
                     document.querySelectorAll('.countdown-seconds').forEach(el => el.textContent = timeLeftGlobal);
                 }, 1000);
 
-                // トピックトークのドットロジック (30秒/10個 = 3秒ごと)
+                // トピックトークのドット進行 (30秒/10個 = 3秒ごと)
                 if (cardId === 'topic') {
                     let dotIdx = 1;
                     topicInterval = setInterval(() => {
