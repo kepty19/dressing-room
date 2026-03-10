@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE DRESSING ROOM | Kepty English Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --premium-orange: #FF8C00;
+            --matte-black: #121212;
+            --dark-gray: #1f1f1f;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--matte-black);
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+        .orange-glow {
+            box-shadow: 0 0 20px rgba(255, 140, 0, 0.2);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            border-color: var(--premium-orange);
+            background: rgba(255, 140, 0, 0.05);
+        }
+        .category-badge {
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: var(--premium-orange);
+            color: #000;
+            font-weight: 900;
+        }
+        .timestamp {
+            color: var(--premium-orange);
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="p-6 border-b border-white/10 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <div class="w-3 h-3 bg-[#FF8C00] rounded-full animate-pulse"></div>
+            <span class="font-black text-xl tracking-tighter italic">KEPTY <span class="text-[#FF8C00]">PREMIUM</span></span>
+        </div>
+        <div class="text-xs uppercase tracking-widest text-gray-400">
+            Professional's Dressing Room
+        </div>
+    </nav>
+
+    <header class="py-12 px-6 max-w-5xl mx-auto text-center">
+        <h1 class="text-5xl md:text-7xl font-black mb-4 tracking-tighter uppercase italic">
+            The <span class="text-[#FF8C00]">Dressing</span> Room
+        </h1>
+        <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto font-light leading-relaxed">
+            代表のトレーニングを30秒だけ「覗き見る」特権。 <br>
+            質と継続が共鳴する、プロフェッショナルの準備の場。
+        </p>
+    </header>
+
+    <section class="px-6 pb-12">
+        <div class="max-w-4xl mx-auto flex justify-center">
+            <div class="flex items-center space-x-8 bg-white/5 py-3 px-8 rounded-full border border-white/10">
+                <div class="text-center">
+                    <p class="text-[10px] text-gray-500 uppercase">Today's Session</p>
+                    <p class="font-bold timestamp">COMPLETED</p>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <div class="text-center">
+                    <p class="text-[10px] text-gray-500 uppercase">Upload Time</p>
+                    <p class="font-bold italic">08:45 AM</p>
+                </div>
+                <div class="w-px h-8 bg-white/10"></div>
+                <div class="text-center">
+                    <p class="text-[10px] text-gray-500 uppercase">Streak</p>
+                    <p class="font-bold italic text-[#FF8C00]">445 DAYS</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="px-6 pb-24 max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="alert('Playing Shadowing Session...')">
+                <div class="aspect-video bg-zinc-800 relative flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1478737270239-2fccd27ee086?auto=format&fit=crop&q=80&w=800" alt="Training" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity">
+                    <div class="z-10 bg-white/10 p-4 rounded-full border border-white/20 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </div>
+                    <div class="absolute top-4 left-4">
+                        <span class="category-badge">Shadowing</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 text-[10px] font-bold bg-black/60 px-2 py-1 rounded">
+                        00:30
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-lg mb-1 italic">VOGUE - Interview Shadowing</h3>
+                    <p class="text-xs text-gray-500 italic">2026.03.10 | 08:15 AM Uploaded</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="alert('Playing Sentence Building...')">
+                <div class="aspect-video bg-zinc-800 relative flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=800" alt="Training" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity">
+                    <div class="z-10 bg-white/10 p-4 rounded-full border border-white/20 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </div>
+                    <div class="absolute top-4 left-4">
+                        <span class="category-badge">Sentence Building</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 text-[10px] font-bold bg-black/60 px-2 py-1 rounded">
+                        00:30
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-lg mb-1 italic">High-Speed Translation</h3>
+                    <p class="text-xs text-gray-500 italic">2026.03.10 | 08:30 AM Uploaded</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-2xl overflow-hidden group cursor-pointer" onclick="alert('Playing Topic Talk...')">
+                <div class="aspect-video bg-zinc-800 relative flex items-center justify-center">
+                    <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=800" alt="Training" class="absolute inset-0 w-full h-full object-cover opacity-40 group-hover:opacity-60 transition-opacity">
+                    <div class="z-10 bg-white/10 p-4 rounded-full border border-white/20 group-hover:scale-110 transition-transform">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FF8C00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </div>
+                    <div class="absolute top-4 left-4">
+                        <span class="category-badge">Topic Talk</span>
+                    </div>
+                    <div class="absolute bottom-4 right-4 text-[10px] font-bold bg-black/60 px-2 py-1 rounded">
+                        00:30
+                    </div>
+                </div>
+                <div class="p-5">
+                    <h3 class="font-bold text-lg mb-1 italic">Investment & Strategy Talk</h3>
+                    <p class="text-xs text-gray-500 italic">2026.03.10 | 08:45 AM Uploaded</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="fixed bottom-0 w-full bg-[#FF8C00] text-black py-2 px-6 overflow-hidden">
+        <div class="whitespace-nowrap flex space-x-12 font-black text-xs uppercase italic tracking-tighter">
+            <span>Quality over Quantity</span>
+            <span>Rep's Work: 3.5 Hours Today</span>
+            <span>Consistency: 445 Days</span>
+            <span>Authentic Training Archive</span>
+            <span>Quality over Quantity</span>
+            <span>Rep's Work: 3.5 Hours Today</span>
+            <span>Consistency: 445 Days</span>
+            <span>Authentic Training Archive</span>
+        </div>
+    </footer>
+
+</body>
+</html>
